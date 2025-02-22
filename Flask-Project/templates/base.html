@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} SkillPlus{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 15px 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            min-height: 2vh;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .logo a {
+            font-size: 35px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            font-size: 1.3rem;
+            padding: 10px;
+            transition: 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            background-color: #d5eaff;
+            color: rgb(255, 255, 255);
+            border-radius: 5px;
+            text-decoration: underline;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 10px 40px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            width: 500px;
+            height: 50px;
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons a {
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .sign-in {
+            background-color: #828282;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+        }
+
+        .sign-up {
+            border-radius: 10px;
+            text-decoration: none;
+            background-color: #337ac6;
+            color: white;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropbtn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            top: 40px;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: black;
+            transition: 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #eee;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .suggestion-box {
+            position: absolute;
+            background: white;
+            border: 1px solid #ddd;
+            color: #000;
+            border-radius: 15px;
+            width: 100%;
+            max-height: 500px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .suggestion-box div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .suggestion-box div:hover {
+            background: #f0f0f0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            background-color: #2c2c2c;
+            color: white;
+            padding: 40px 0;
+            width: 100%;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 2rem 5%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-section {
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .footer-section p,
+        .footer-section ul {
+            font-size: 1rem;
+            color: #bbb;
+            line-height: 1.6;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section ul li a {
+            text-decoration: none;
+            color: #ddd;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #337ac6;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            font-size: 1.5rem;
+            color: white;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .social-icons a:hover {
+            color: #337ac6;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 15px;
+            background-color: #222;
+            color: white;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-section {
+                padding: 10px 0;
+            }
+        }
+
+
+
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+
+            .nav-links,
+            .search-bar,
+            .auth-buttons {
+                display: none;
+            }
+
+            .burger {
+                display: block;
+            }
+
+            .nav-active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background-color: white;
+                width: 100%;
+                padding: 20px;
+                box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        .sign-out {
+            background-color: #ff4d4d;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            transition: 0.3s;
+            margin-left: 10px;
+        }
+
+        .sign-out:hover {
+            background-color: #cc0000;
+        }
+    </style>
+    {% block style %}{% endblock %}
+
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="logo">
+            <a href="/"><span style="color: crimson;">Skill</span>plus+</a>
+        </div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="{{ url_for('about' ) }}">About</a>
+            <a href="{{ url_for('courses' ) }}">Courses</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for courses..." onkeyup="showSuggestions()"
+                autocomplete="off">
+            <i class="fas fa-search" onclick="performSearch()"></i>
+            <div id="suggestions" class="suggestion-box"></div>
+        </div>
+
+        <div class="auth-buttons">
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('profile') }}" class="profile-btn">
+                <i class="fa-sharp fa-solid fa-user fa-xl" style="color: #0a041b;"></i>
+            </a>
+            <a href="{{ url_for('logout') }}" class="sign-out">Logout</a>
+            {% else %}
+            <a href="{{ url_for('login') }}" class="sign-in">Sign in</a>
+            <a href="{{ url_for('register') }}" class="sign-up">Sign Up</a>
+            {% endif %}
+        </div>
+
+        <div class="burger" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+
+    {% block content %}
+
+
+    {% endblock %}
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Skillplus+</h3>
+                <p>Your go-to platform for learning new skills and enhancing knowledge.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About Us</a></li>
+                    <li><a href="{{ url_for('courses') }}">Courses</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Skillplus+. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector(".nav-links");
+            if (navLinks.classList.contains("nav-active")) {
+                navLinks.classList.remove("nav-active");
+            } else {
+                navLinks.classList.add("nav-active");
+            }
+        }
+        function performSearch() {
+            let query = document.getElementById('searchInput').value.trim();
+            if (query) {
+                window.location.href = `/courses?search=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // Also trigger search when pressing Enter
+        document.getElementById('searchInput').addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+        const courses = [
+            { name: "React for Beginners", category: "Web Development" },
+            { name: "JavaScript Fundamentals", category: "Programming" },
+            { name: "Python for Data Science", category: "Data Science" },
+            { name: "Machine Learning Basics", category: "AI" },
+            { name: "Advanced CSS and SASS", category: "Web Design" },
+            { name: "Node.js and Express", category: "Backend Development" }
+        ];
+
+        function showSuggestions() {
+            let query = document.getElementById('searchInput').value.trim().toLowerCase();
+            let suggestionBox = document.getElementById('suggestions');
+
+            if (!query) {
+                suggestionBox.style.display = "none";
+                return;
+            }
+
+            let filteredCourses = courses.filter(course =>
+                course.name.toLowerCase().includes(query) || course.category.toLowerCase().includes(query)
+            );
+
+            if (filteredCourses.length === 0) {
+                suggestionBox.style.display = "none";
+                return;
+            }
+
+            suggestionBox.innerHTML = "";
+            filteredCourses.forEach(course => {
+                let div = document.createElement("div");
+                div.textContent = course.name;
+                div.onclick = function () {
+                    document.getElementById('searchInput').value = course.name;
+                    suggestionBox.style.display = "none";
+                    performSearch(); // Trigger search
+                };
+                suggestionBox.appendChild(div);
+            });
+
+            suggestionBox.style.display = "block";
+        }
+
+        function performSearch() {
+            let query = document.getElementById('searchInput').value.trim();
+            if (query) {
+                window.location.href = `/courses?search=${encodeURIComponent(query)}`;
+            }
+        }
+
+        // Close suggestions when clicking outside
+        document.addEventListener("click", function (event) {
+            let suggestionBox = document.getElementById("suggestions");
+            let searchInput = document.getElementById("searchInput");
+
+            if (!searchInput.contains(event.target) && !suggestionBox.contains(event.target)) {
+                suggestionBox.style.display = "none";
+            }
+        });
+
+        // Allow pressing Enter to search
+        document.getElementById('searchInput').addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+
+
+
+    </script>
+</body>
+
+</html>

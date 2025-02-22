@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+{% block title %}
+SkillPlus | Login
+{% endblock %}
+{% block style %}
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Added for centering */
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* Changed to center */
+        flex-grow: 1;
+        margin: 8rem 0;
+        padding: 0 20px;
+        max-width: 1400px;
+        /* Increased from 1200px */
+    }
+
+    .left-section {
+        flex: 1;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px;
+        background: transparent;
+        /* Changed to transparent */
+        min-height: 600px;
+        /* Added minimum height */
+    }
+
+    .left-section img {
+        max-width: 90%;
+        /* Increased from 80% */
+        height: 700px;
+        /* Increased from 600px */
+        object-fit: cover;
+        /* Changed to cover to fill height */
+        opacity: 0.9;
+        mix-blend-mode: multiply;
+    }
+
+    .right-section {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        /* Changed to center */
+        justify-content: center;
+        /* Added for centering */
+    }
+
+    .form-container {
+        width: 100%;
+        max-width: 450px;
+        min-height: 600px;
+        padding: 40px;
+        border-radius: 0 20px 20px 0;
+        backdrop-filter: blur(10px);
+        transform: translateY(0);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        margin-left: -20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    h1 {
+        text-align: center;
+        color: #1a73e8;
+        margin-bottom: 30px;
+        font-size: 32px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 10px;
+        color: #2c3e50;
+        font-weight: 500;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 15px 20px;
+        border-radius: 12px;
+        border: 2px solid #e1e8ed;
+        background-color: #f8fafc;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+        border-color: #1a73e8;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+        outline: none;
+    }
+
+    .btn-primary {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(45deg, #1a73e8, #155bb5);
+        color: white;
+        border-radius: 12px;
+        border: none;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(45deg, #155bb5, #1a73e8);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(26, 115, 232, 0.4);
+    }
+
+    .register-link {
+        text-align: center;
+        margin-top: 25px;
+        font-size: 16px;
+        color: #64748b;
+    }
+
+    .register-link a {
+        color: #1a73e8;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .register-link a:hover {
+        color: #155bb5;
+        text-decoration: none;
+        transform: translateX(3px);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="left-section">
+        <img src="static\image\login-image.avif" alt="">
+    </div>
+    <div class="right-section">
+        <div class="form-container">
+            <h1>Login</h1>
+            <form action="{{ url_for('login') }}" method="POST">
+                <div class="form-group">
+                    <label for="email">Enter Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Enter Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                </div>
+                <!-- <div class="mb-3">
+                    <label for="role" class="form-label">Role</label>
+                    <select class="form-control" id="role" name="role" required>
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div> -->
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            <div class="register-link">
+                <p>New user? <a href="{{ url_for('register') }}">Register here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <footer>
+    &copy; 2025 Your Company. All rights reserved.
+</footer> -->
+
+{% endblock %}

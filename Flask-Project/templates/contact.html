@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% block title %}
+SkillPlus | Contact
+{% endblock %}
+{% block content %}
+<style>
+    .contact-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    .contact-wrapper {
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+    }
+
+    .contact-title {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .contact-subtitle {
+        font-size: 1.1rem;
+        color: #666;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .contact-form-section {
+        padding-right: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+    }
+
+    .submit-btn {
+        background-color: #2563eb;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn:hover {
+        background-color: #1d4ed8;
+    }
+
+    .contact-info-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .info-card {
+        background: #f8fafc;
+        padding: 25px;
+        border-radius: 8px;
+    }
+
+    .info-card h3 {
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .info-item i {
+        color: #2563eb;
+        margin-right: 10px;
+        font-size: 1.2rem;
+    }
+
+    .info-item p {
+        color: #666;
+    }
+
+    @media (max-width: 768px) {
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .contact-form-section {
+            padding-right: 0;
+        }
+    }
+</style>
+
+
+<div class="contact-container" style="margin-top: 10rem;">
+    <div class="contact-wrapper">
+        <h1 class="contact-title">Contact Us</h1>
+        <p class="contact-subtitle">Get in touch with our support team. We're here to help!</p>
+
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+
+            <div class="contact-info-section">
+                <div class="info-card">
+                    <h3>Contact Information</h3>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <p>support@skillpluss.com</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <p>+91 1234567890</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <p>Monday - Friday: 9:00 AM - 6:00 PM EST</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>FAQ</h3>
+                    <p>Visit our <a href="/faq">FAQ page</a> for quick answers to common questions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

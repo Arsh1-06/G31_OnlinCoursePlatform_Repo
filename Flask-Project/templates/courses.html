@@ -1,0 +1,444 @@
+{% extends 'base.html' %}
+{% block title %}
+SkillPlus | Courses
+{% endblock %}
+
+{% block content %}
+
+<style>
+    /* * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        display: flex;
+    } */
+    body{
+        overflow-x: hidden;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: 80px;
+        background-image: linear-gradient(to right top, #6b9cd1, #6d9bd6, #709adb, #7698df, #7c96e3, #7b90e7, #7d89e9, #8081eb, #8072ec, #8360eb, #8a4be7, #932ee1);
+        color: rgb(255, 255, 255);
+        padding: 10px 20px;
+        position: sticky;
+        top: 8.7%;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .sidebar ul {
+        list-style-type: none;
+        display: flex;
+        gap: 20px;
+        padding: 0;
+        margin: 0;
+    }
+
+    .sidebar ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+
+        padding: 13px;
+        transition: background 0s ease-out;
+    }
+
+    .sidebar ul li a.active {
+        background-color: white;
+        color: black;
+        border-radius: 30px;
+    }
+
+    .sidebar ul li a:hover {
+        background-color: white;
+        color: black;
+        border-radius: 30px;
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 20px;
+        background-color: #ffffff;
+        margin-top: 5rem;
+        justify-content: center;
+    }
+    .main-content p{
+        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size: 3rem;
+    }
+
+    .genre-section {
+        margin-bottom: 40px;
+    }
+
+    .genre-section h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: rgb(0, 0, 0);
+    }
+
+    .course-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+
+    }
+
+    .course-card {
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 100%;
+        height: 30rem;
+        margin: .1rem;
+    }
+
+    .course-card:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    .course-card img {
+        /* padding: 10px; */
+        width: 100%;
+        aspect-ratio: 1/2;
+        height: 200px;
+        /* Adjust height if needed */
+        object-fit: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .course-info {
+        padding: 15px;
+        text-align: center;
+    }
+
+    .course-info h3 {
+        font-size: 20px;
+        margin-bottom: 8px;
+        color: #2c2c2c;
+    }
+
+    .course-info p {
+        font-size: 16px;
+        color: #666;
+    }
+
+    .add-btn {
+        cursor: pointer;
+        width: 48px;
+        height: 48px;
+    }
+
+    .form-container {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    }
+
+
+    /* Add to your existing style section */
+    /* .course-actions {
+padding: 10px;
+text-align: center;
+}
+
+.btn {
+padding: 5px 10px;
+margin: 0 5px;
+border: none;
+border-radius: 3px;
+cursor: pointer;
+text-decoration: none;
+display: inline-block;
+}
+
+.btn-warning {
+background-color: #ffc107;
+color: #000;
+}
+
+.btn-danger {
+background-color: #dc3545;
+color: white;
+}
+
+.btn:hover {
+opacity: 0.8;
+} */
+
+
+.form-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-container button {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form-container button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.form-container button[type="button"] {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+</style>
+
+
+<div class="sidebar">
+    <ul>
+        <li><a href="javascript:void(0);" onclick="filterCourses('all')">All Courses</a></li>
+        <li><a href="javascript:void(0);" onclick="filterCourses('web_dev')">Web Development</a></li>
+        <li><a href="javascript:void(0);" onclick="filterCourses('design')">Design</a></li>
+        <li><a href="javascript:void(0);" onclick="filterCourses('data_science')">Data Science</a></li>
+        <li><a href="javascript:void(0);" onclick="filterCourses('marketing')">Marketing</a></li>
+        <li><a href="javascript:void(0);" onclick="filterCourses('finance')">Finance</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+    <div id="web_dev" class="genre-section course-category" data-category="web_dev">
+        <p>Web Development</p>
+        <div class="course-grid">
+            {% for course in web_dev_courses %}
+            <div class="course-card course-item" data-category="web_dev">
+                <img src="{{ course.image }}" alt="{{ course.title }}" style="height: 300px;">
+                <div class="course-info">
+                    <h3>{{ course.title }}</h3>
+                    <h6>{{ course.teacher }}</h6>
+                    <p><i class="fa-solid fa-star" style="color: gold;"></i> {{ course.rating }}</p>
+                    <a href="{{ course.link }}" target="_blank" class="btn btn-primary">Go to Course</a>
+                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                    <form action="{{ url_for('delete_course', course_type=course.__class__.__name__, course_id=course.course_id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this course?')">Delete</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% if current_user.is_authenticated and current_user.role == 'admin' %}
+            <img width="48" height="48" src="https://img.icons8.com/color/48/add--v1.png" alt="add--v1"
+                onclick="openForm('Web_Dev')">
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="design" class="genre-section course-category" data-category="design">
+        <p>Design Courses</p>
+        <div class="course-grid">
+            {% for course in design_courses %}
+            <div class="course-card course-item" data-category="design">
+                <img src="{{ course.image }}" alt="{{ course.title }}" style="height: 300px;">
+                <div class="course-info">
+                    <h3>{{ course.title }}</h3>
+                    <h6>{{ course.teacher }}</h6>
+                    <p><i class="fa-solid fa-star" style="color: gold;"></i> {{ course.rating }}</p>
+                    <a href="{{ course.link }}" target="_blank" class="btn btn-primary">Go to Course</a>
+                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                    <form action="{{ url_for('delete_course', course_type=course.__class__.__name__, course_id=course.course_id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this course?')">Delete</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% if current_user.is_authenticated and current_user.role == 'admin' %}
+            <img width="48" height="48" src="https://img.icons8.com/color/48/add--v1.png" alt="add--v1"  onclick="openForm('Design')">
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="data_science" class="genre-section course-category" data-category="data_science">
+        <p>Data Science Courses</p>
+        <div class="course-grid">
+            {% for course in data_science_courses %}
+            <div class="course-card course-item" data-category="data_science">
+                <img src="{{ course.image }}" alt="{{ course.title }}" style="height: 300px;">
+                <div class="course-info">
+                    <h3>{{ course.title }}</h3>
+                    <h6>{{ course.teacher }}</h6>
+                    <p><i class="fa-solid fa-star" style="color: gold;"></i> {{ course.rating }}</p>
+                    <a href="{{ course.link }}" target="_blank" class="btn btn-primary">Go to Course</a>
+                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                    <form action="{{ url_for('delete_course', course_type=course.__class__.__name__, course_id=course.course_id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this course?')">Delete</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% if current_user.is_authenticated and current_user.role == 'admin' %}
+            <img width="48" height="48" src="https://img.icons8.com/color/48/add--v1.png" alt="add--v1"  onclick="openForm('data_Science')">
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="marketing" class="genre-section course-category" data-category="marketing">
+        <p>Marketing Courses</p>
+        <div class="course-grid">
+            {% for course in marketing_courses %}
+            <div class="course-card course-item" data-category="marketing">
+                <img src="{{ course.image }}" alt="{{ course.title }}" style="height: 300px;">
+                <div class="course-info">
+                    <h3>{{ course.title }}</h3>
+                    <h6>{{ course.teacher }}</h6>
+                    <p><i class="fa-solid fa-star" style="color: gold;"></i> {{ course.rating }}</p>
+                    <a href="{{ course.link }}" target="_blank" class="btn btn-primary">Go to Course</a>
+                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                    <form action="{{ url_for('delete_course', course_type=course.__class__.__name__, course_id=course.course_id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this course?')">Delete</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% if current_user.is_authenticated and current_user.role == 'admin' %}
+            <img width="48" height="48" src="https://img.icons8.com/color/48/add--v1.png" alt="add--v1"  onclick="openForm('Marketing')">
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="finance" class="genre-section course-category" data-category="finance">
+        <p>Finance Courses</p>
+        <div class="course-grid">
+            {% for course in finance_courses %}
+            <div class="course-card course-item" data-category="finance">
+                <img src="{{ course.image }}" alt="{{ course.title }}" style="height: 300px;">
+                <div class="course-info">
+                    <h3>{{ course.title }}</h3>
+                    <h6>{{ course.teacher }}</h6>
+                    <p><i class="fa-solid fa-star" style="color: gold;"></i> {{ course.rating }}</p>
+                    <a href="{{ course.link }}" target="_blank" class="btn btn-primary">Go to Course</a>
+                    {% if current_user.is_authenticated and current_user.role == 'admin' %}
+                    <form action="{{ url_for('delete_course', course_type=course.__class__.__name__, course_id=course.course_id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this course?')">Delete</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% if current_user.is_authenticated and current_user.role == 'admin' %}
+            <img width="48" height="48" src="https://img.icons8.com/color/48/add--v1.png" alt="add--v1"  onclick="openForm('Finance')">
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="form-container" id="courseForm">
+    <h3>Add Course to <span id="courseName"></span></h3>
+    <form action="{{ url_for('add_courses') }}" method="POST">
+        <input type="hidden" name="courses" id="courseInput">
+        <input type="text" name="title" placeholder="Course Title" required>
+        <input type="text" name="teacher" placeholder="Teacher Name" required>
+        <input type="number" step="0.1" name="rating" placeholder="Rating" required>
+        <input type="text" name="image" placeholder="Image URL" required>
+        <input type="text" name="link" placeholder="Course Link" required>
+        <button type="submit">Add Course</button>
+        <button type="button" onclick="closeForm()">Cancel</button>
+    </form>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const genreLinks = document.querySelectorAll(".sidebar ul li a");
+
+        genreLinks.forEach(link => {
+            link.addEventListener("click", function () {
+                genreLinks.forEach(l => l.classList.remove("active")); 
+                this.classList.add("active"); 
+            });
+        });
+    });
+
+    function filterCourses(category) {
+        // Get all course sections
+        let sections = document.querySelectorAll('.course-category');
+
+        sections.forEach(section => {
+            if (category === 'all' || section.getAttribute('data-category') === category) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        });
+    }
+    function openForm(course) {
+        document.getElementById('courseForm').style.display = 'block';
+        document.getElementById('courseName').innerText = course;
+        document.getElementById('courseInput').value = course;
+    }
+
+    function closeForm() {
+        document.getElementById('courseForm').style.display = 'none'; 
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        let alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert, index) {
+            setTimeout(function() {
+                if (alert.parentNode) {
+                    alert.parentNode.removeChild(alert);
+                }
+            }, 1500 + (index * 1000));
+        });
+    });
+</script>
+{% endblock %}
